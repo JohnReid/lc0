@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+
+from pathlib import Path
+from lczero.backends import Weights, Backend, GameState
+
+LC0_DIR = Path.home() / 'lc0'
+WEIGHTS_PATH = LC0_DIR / '256x20-t40-1541.pb.gz'
+
+w = Weights()
+w.filters()
+Backend.available_backends()
+backend = Backend(weights=w)
+dir(backend)
+capabilities = backend.capabilities()
+capabilities.input_format()
+capabilities.moves_left_format()
+
+g = GameState(moves=['e2e4, e7e5'])
+g = GameState(moves=['e2e4', 'e7e5'])
+print(g.as_string())
+
+i1 = g.as_input(backend)
+i2 = GameState(fen='2R5/5kpp/4p3/p4p2/3B4/1K5N/4rNPP/8 b - - 0 29').as_input(backend)
+bin(i1.mask(0))
+bin(i2.mask(0))
+o1, o2 = backend.evaluate(i1, i2)
+o1.q()
+o2.q()
+
+list(zip(g.moves(), o1.p_softmax(*g.policy_indices())))
+dir(o1)

@@ -130,5 +130,5 @@ option('nvcc_ccbin',
 
 option('python_bindings',
        type: 'boolean',
-       value: false,
+       value: true,
        description: 'Build Python bindings for the python to bind.')
