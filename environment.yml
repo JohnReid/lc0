@@ -1,0 +1,17 @@
+name: LC0
+channels:
+  - conda-forge
+  - omnia
+dependencies:
+  - numpy
+  - pandas
+  - libtensorflow_cc
+  - eigen3
+  - mkl
+  - meson
+  - pybind11
+  - jupyter
+  - pip
+  - pip:
+    - pynvim
+
