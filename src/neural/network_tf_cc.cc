@@ -128,9 +128,10 @@ Output MakeResidualBlock(const Scope& scope, Input input, int channels,
 }
 
 template <bool CPU>
-std::tuple<Output, Output, Output> MakeNetwork(const Scope& scope, Input input,
-                                               const LegacyWeights& weights,
-                                               bool wdl, bool moves_left) {
+std::tuple<Output, Output, Output, Output>
+MakeNetwork(const Scope& scope, Input input,
+            const LegacyWeights& weights,
+            bool wdl, bool moves_left) {
   const int filters = weights.input.weights.size() / kInputPlanes / 9;
 
   // Input convolution.
@@ -238,7 +239,7 @@ std::tuple<Output, Output, Output> MakeNetwork(const Scope& scope, Input input,
     moves_left_head = Relu(scope, ip_fc);
   }
 
-  return {policy_head, value_head, moves_left_head};
+  return {policy_head, value_head, moves_left_head, flow};
 }
 
 template <bool CPU>
@@ -316,6 +317,10 @@ class TFNetworkComputation : public NetworkComputation {
     } else {
       return 0.0f;
     }
+  }
+  std::vector<float> GetRepresentation(int sample) const override {
+    std::cout << "In network_tf_cc.cc" << std::endl;
+    return output_[3].template matrix<float>()(sample);
   }
 
  private:
