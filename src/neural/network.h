@@ -67,6 +67,7 @@ class NetworkComputation {
   // Returns P value @move_id of @sample.
   virtual float GetPVal(int sample, int move_id) const = 0;
   virtual float GetMVal(int sample) const = 0;
+  virtual std::vector<float> GetRepresentation(int /* sample */) const { return std::vector<float>(); }
   virtual ~NetworkComputation() {}
 };
 

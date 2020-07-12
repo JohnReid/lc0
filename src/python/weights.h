@@ -135,10 +135,12 @@ class Output {
     q_ = computation.GetQVal(idx);
     d_ = computation.GetDVal(idx);
     m_ = computation.GetMVal(idx);
+    internal_repr_ = computation.GetRepresentation(idx);
   }
   float q() const { return q_; }
   float d() const { return d_; }
   float m() const { return m_; }
+  std::vector<float> internal_repr() const { return internal_repr_; }
   std::vector<float> p_raw(const std::vector<int>& indicies) {
     std::vector<float> result(indicies.size());
     for (size_t i = 0; i < indicies.size(); ++i) {
@@ -174,6 +176,7 @@ class Output {
   float q_;
   float d_;
   float m_;
+  std::vector<float> internal_repr_;
 };
 
 class BackendCapabilities {
